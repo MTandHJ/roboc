@@ -43,6 +43,9 @@ def load_model(model_type: str) -> Callable[..., torch.nn.Module]:
     if model_type in resnets:
         import models.resnet as resnet
         model = getattr(resnet, model_type)
+    elif model_type == "mnist":
+        from models.mnist import MNIST
+        model = MNIST
     else:
         raise ModelNotDefineError(f"model {model_type} is not defined.\n" \
                 f"Refer to the following: {load_model.__doc__}\n")
