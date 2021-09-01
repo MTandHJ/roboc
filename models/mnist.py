@@ -7,40 +7,42 @@ from .base import AdversarialDefensiveModel, generate_weights
 
 
 class MNIST(AdversarialDefensiveModel):
-
     def __init__(
-        self, dim_feature=256, 
-        num_classes=10,
-        scale=10.
+        self, dim_feature=256, num_classes=10, 
+        scale=10., drop=0.5
     ):
         super(MNIST, self).__init__()
 
-        self.conv = nn.Sequential( # 1 x 28 x 28
-            nn.Conv2d(1, 32, 3),   # 32 x 26 x 26
-            nn.BatchNorm2d(32),
-            nn.PReLU(),
-            nn.Conv2d(32, 32, 3),  # 32 x 24 x 24
-            nn.BatchNorm2d(32),
-            nn.PReLU(),
-            nn.MaxPool2d(2),       # 32 x 12 x 12
-            nn.Conv2d(32, 64, 3),  # 64 x 10 x 10
-            nn.BatchNorm2d(64),
-            nn.PReLU(),
-            nn.Conv2d(64, 64, 3),  # 64 x 8 x 8
-            nn.BatchNorm2d(64),
-            nn.PReLU(),
-            nn.MaxPool2d(2)        # 64 x 4 x 4
+        self.conv = nn.Sequential(
+            nn.Conv2d(1, 32, 3),
+            nn.ReLU(True),
+            nn.Conv2d(32, 32, 3),
+            nn.ReLU(True),
+            nn.MaxPool2d(2, 2),
+            nn.Conv2d(32, 64, 3),
+            nn.ReLU(True),
+            nn.Conv2d(64, 64, 3),
+            nn.ReLU(True),
+            nn.MaxPool2d(2, 2),
         )
 
         self.dense = nn.Sequential(
             nn.Linear(64 * 4 * 4, 200),
-            nn.PReLU(),
-            nn.BatchNorm1d(200),
-            nn.Linear(200, dim_feature),
-            nn.BatchNorm1d(dim_feature)
+            nn.ReLU(True),
+            nn.Dropout(drop),
+            nn.Linear(200, dim_feature)
         )
-        self.activation = nn.PReLU()
+        self.activation = nn.ReLU(True)
         self.fc = nn.Linear(dim_feature, num_classes)
+
+        for m in self.modules():
+            if isinstance(m, (nn.Conv2d)):
+                nn.init.kaiming_normal_(m.weight)
+                if m.bias is not None:
+                    nn.init.constant_(m.bias, 0)
+            elif isinstance(m, nn.BatchNorm2d):
+                nn.init.constant_(m.weight, 1)
+                nn.init.constant_(m.bias, 0)
         _weights = generate_weights(dim_feature)[:num_classes] * scale
         self.fc.weight.data.copy_(_weights)
         self.fc.requires_grad_(False)
