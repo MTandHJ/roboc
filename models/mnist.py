@@ -15,24 +15,24 @@ class MNIST(AdversarialDefensiveModel):
 
         self.conv = nn.Sequential(
             nn.Conv2d(1, 32, 3),
-            nn.ReLU(True),
+            nn.PReLU(),
             nn.Conv2d(32, 32, 3),
-            nn.ReLU(True),
+            nn.PReLU(),
             nn.MaxPool2d(2, 2),
             nn.Conv2d(32, 64, 3),
-            nn.ReLU(True),
+            nn.PReLU(),
             nn.Conv2d(64, 64, 3),
-            nn.ReLU(True),
+            nn.PReLU(),
             nn.MaxPool2d(2, 2),
         )
 
         self.dense = nn.Sequential(
             nn.Linear(64 * 4 * 4, 200),
-            nn.ReLU(True),
+            nn.PReLU(),
             nn.Dropout(drop),
             nn.Linear(200, dim_feature)
         )
-        self.activation = nn.ReLU(True)
+        self.activation = nn.PReLU()
         self.fc = nn.Linear(dim_feature, num_classes)
 
         for m in self.modules():

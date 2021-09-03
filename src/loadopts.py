@@ -24,7 +24,7 @@ class DatasetNotIncludeError(Exception): pass
 
 # return the num_classes of corresponding data set
 def get_num_classes(dataset_type: str) -> int:
-    if dataset_type in ('mnist', 'cifar10'):
+    if dataset_type in ('mnist', 'fashionmnist', 'cifar10'):
         return 10
     elif dataset_type in ('cifar100', ):
         return 100
@@ -149,6 +149,11 @@ def _dataset(
 
     if dataset_type == "mnist":
         dataset = torchvision.datasets.MNIST(
+            root=ROOT, train=train, download=False,
+            transform=transform
+        )
+    elif dataset_type == "fashionmnist":
+        dataset = torchvision.datasets.FashionMNIST(
             root=ROOT, train=train, download=False,
             transform=transform
         )
