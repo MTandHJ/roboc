@@ -50,12 +50,15 @@ class ResNet(AdversarialDefensiveModel):
 
     def __init__(
         self, layers, num_classes=10,
-        scale=10., block=BasicBlock
+        scale=10., block=BasicBlock, mnist=False
     ):
         super(ResNet, self).__init__()
 
 
-        self.conv0 = conv3x3(3, 16)
+        if mnist:
+            self.conv0 = conv3x3(1, 16)
+        else:
+            self.conv0 = conv3x3(3, 16)
         self.bn0 = nn.BatchNorm2d(16)
         self.act0 = nn.PReLU()
         self.cur_channels = 16
@@ -110,7 +113,8 @@ class ResNet(AdversarialDefensiveModel):
 
 
 def resnet8(num_classes=10, **kwargs):
-    return ResNet([1, 1, 1], num_classes=num_classes, **kwargs)
+    # for mnist|fashionmnist only ...
+    return ResNet([1, 1, 1], num_classes=num_classes, mnist=True, **kwargs)
 
 def resnet20(num_classes=10, scale=10.):
     return ResNet([3, 3, 3], num_classes=num_classes, scale=scale)
