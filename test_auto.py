@@ -22,7 +22,7 @@ basic_cfg = dict(
     path=opts.path
 )
 
-if opts.model == "mnist":
+if opts.dataset in ("mnist", "fashionmnist"):
     cfgs = (
         dict(epsilon=0.3, norm="Linf"),
         dict(epsilon=2, norm="L2")

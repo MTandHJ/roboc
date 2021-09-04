@@ -35,9 +35,9 @@ def get_num_classes(dataset_type: str) -> int:
 
 def load_model(model_type: str) -> Callable[..., torch.nn.Module]:
     """
-    resnet20|32|56|110
+    resnet8|20|32|56|110
     """
-    resnets = ['resnet20', 'resnet32',
+    resnets = ['resnet8', 'resnet20', 'resnet32',
                 'resnet56', 'resnet110']
 
     if model_type in resnets:

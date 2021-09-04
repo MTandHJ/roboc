@@ -13,7 +13,7 @@ from .base import AdversarialDefensiveModel, generate_weights
 
 
 
-__all__ = ["ResNet", "resnet20", "resnet32", "resnet56", "resnet110"]
+__all__ = ["ResNet", "resnet8", "resnet20", "resnet32", "resnet56", "resnet110"]
 
 def conv3x3(in_channels, out_channels, stride=1, padding=1):
     return nn.Conv2d(in_channels, out_channels, 3, 
@@ -108,6 +108,9 @@ class ResNet(AdversarialDefensiveModel):
         else:
             return logits
 
+
+def resnet8(num_classes=10, **kwargs):
+    return ResNet([1, 1, 1], num_classes=num_classes, **kwargs)
 
 def resnet20(num_classes=10, scale=10.):
     return ResNet([3, 3, 3], num_classes=num_classes, scale=scale)

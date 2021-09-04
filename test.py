@@ -23,7 +23,7 @@ basic_cfg = dict(
     progress="--progress" if opts.progress else ""
 )
 
-if opts.model == "mnist":
+if opts.dataset in ("mnist", "fashionmnist"):
     linf_cfg = (
         dict(attack='pgd-linf', steps=50, stepsize=0.033333, epsilon=0.3),
         dict(attack='pgd-linf', steps=100, stepsize=0.033333, epsilon=0.3),
