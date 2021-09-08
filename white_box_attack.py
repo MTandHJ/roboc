@@ -127,10 +127,14 @@ def main(attacker, testloader):
         #     epsilon
         # )
     running_accuracy = list(map(lambda x: 1. - x, running_success))
+
+    running_accuracy = ', '.join([f"{acc:.3%}" for acc in running_accuracy])
+    running_distance_linf = ', '.join([f"{dis_linf:.5f}" for dis_linf in running_distance_linf])
+    running_distance_l2 = ', '.join([f"{dis_l2:.5f}" for dis_l2 in running_distance_l2])
    
-    print("Accuracy: \n", running_accuracy)
-    print("Distance-Linf: \n", running_distance_linf)
-    print("Distance-L2: \n", running_distance_l2)
+    print(f"Accuracy: {running_accuracy}")
+    print(f"Distance-Linf: {running_distance_linf}")
+    print(f"Distance-L2: {running_distance_l2}")
    
 
 if __name__ == "__main__":
