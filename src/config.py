@@ -164,10 +164,10 @@ LEARNING_POLICY = {
             prefix="TRADES learning policy, an official config:\n"
         )
     ),
-    "TRADES-M":(
+    "M":(
         "MultiStepLR",
         Config(
-            milestones=[55, 75, 90],
+            milestones=[25, 40, 45],
             gamma=0.1,
             prefix="TRADES learning policy, an official config for MNIST:\n"
         )
