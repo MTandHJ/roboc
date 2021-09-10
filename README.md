@@ -53,7 +53,9 @@ where leverage is the hyper-parameter alpha in paper.
 STD.py is equal to set leverage=1:
 
 ```
-python STD.py resnet32 cifar10
+python STD.py resnet32 cifar10 -lp=STD --epochs=164 -wd=0.0002 --scale=10
+python STD.py mnist mnist -lp=M --epochs=80 -lr=0.1 -wd=2e-4 -mom=0.9 -b=128 --scale=20
+python STD.py mnist fashionmnist -lp=M --epochs=80 -lr=0.1 -wd=2e-4 -mom=0.9 -b=128 --scale=20
 ```
 
 
