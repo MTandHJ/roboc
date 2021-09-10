@@ -167,9 +167,9 @@ LEARNING_POLICY = {
     "M":(
         "MultiStepLR",
         Config(
-            milestones=[25, 40],
+            milestones=[35, 65, 75],
             gamma=0.1,
-            prefix="TRADES learning policy, an official config for MNIST:\n"
+            prefix="MultiStepLR learning policy:\n"
         )
     ),
     "cosine":(   

@@ -43,8 +43,8 @@ Use the following codes to adversarially train the model,
 
 
     python AT.py resnet32 cifar10 --scale=10 --leverage=0.15
-	python AT.py mnist mnist -lp=M --epochs=50 -lr=0.1 -wd=2e-4 -mom=0.9 -b=128 --epsilon=0.3 --steps=40 --stepsize=0.0333333 --leverage=0.2
-	python AT.py mnist fashionmnist -lp=M --epochs=50 -lr=0.1 -wd=2e-4 -mom=0.9 -b=128 --epsilon=0.3 --steps=40 --stepsize=0.0333333 --leverage=0.2
+	python AT.py mnist mnist -lp=M --epochs=80 -lr=0.1 -wd=2e-4 -mom=0.9 -b=128 --epsilon=0.3 --steps=40 --stepsize=0.0333333 --leverage=0.3
+	python AT.py mnist fashionmnist -lp=M --epochs=80 -lr=0.1 -wd=2e-4 -mom=0.9 -b=128 --epsilon=0.3 --steps=40 --stepsize=0.0333333 --leverage=0.3
 
 where leverage is the hyper-parameter alpha in paper.
 
